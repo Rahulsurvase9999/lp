@@ -13,7 +13,9 @@ contract StudentData {
     Student[] public students;
 
     // Fallback function to handle unknown function calls
-    fallback() external {}
+    fallback() external {
+     // if required add this addStudent("Unknown", "BE", "CSE")
+    }
 
     // Receive function to accept Ether
     receive() external payable {}
