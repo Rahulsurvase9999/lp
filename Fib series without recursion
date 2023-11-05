@@ -1,0 +1,55 @@
+Fibonacci series without recursion
+Fibonacci series is defined as a sequence of numbers in which the first two numbers are 1 and 1, or 0 and 1, depending on the selected 
+beginning point of the sequence, and each subsequent number is the sum of the previous two. So, in this series, the nth term is the sum of (n-1)th term and (n-2)th term. 
+Fibonacci Series in C++: In case of fibonacci series, next number is the sum of previous two numbers for example 0, 1, 1, 2, 3, 5, 8, 13, 21 etc. The first two numbers 
+of fibonacci series are 0 and 1.
+There are two ways to write the fibonacci series program:
+- Fibonacci Series without recursion
+- Fibonacci Series using recursion
+
+# Program to display the Fibonacci sequence up to n-th term
+nterms = int(input("How many terms? "))
+
+# first two terms
+n1, n2 = 0, 1
+count = 0
+
+# check if the number of terms is valid
+if nterms <= 0:
+   print("Please enter a positive integer")
+# if there is only one term, return n1
+elif nterms == 1:
+   print("Fibonacci sequence upto",nterms,":")
+   print(n1)
+# generate fibonacci sequence
+else:
+   print("Fibonacci sequence:")
+   while count < nterms:
+       print(n1)
+       nth = n1 + n2
+       # update values
+       n1 = n2
+       n2 = nth
+       count += 1
+
+Fibonacci series in Cpp
+
+#include <iostream>
+using namespace std;
+int main() {
+ int n1=0,n2=1,n3,i,number;
+cout<<"Enter the number of elements: ";
+cin>>number;
+cout<<n1<<" "<<n2<<" "; //printing 0 and 1
+for(i=2;i<number;++i) //loop starts from 2 because 0 and 1 are already printed
+{
+ n3=n1+n2;
+ cout<<n3<<" ";
+ n1=n2;
+ n2=n3;
+}
+ return 0;
+ }
+Output:
+Enter the number of elements: 10
+0 1 1 2 3 5 8 13 21 34
