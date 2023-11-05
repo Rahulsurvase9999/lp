@@ -1,0 +1,67 @@
+Fibonacci series using recursion in C++
+Fibonacci Series: Fibonacci series is defined as a sequence of numbers in which the first two
+numbers are 1 and 1, or 0 and 1, depending on the selected beginning point of the sequence, and
+each subsequent number is the sum of the previous two. So, in this series, the nth term is the sum
+of (n-1)th term and (n-2)th term. Fibonacci Series in C++: In case of fibonacci series, next number
+is the sum of previous two numbers for example 0, 1, 1, 2, 3, 5, 8, 13, 21 etc. The first two numbers
+of fibonacci series are 0 and 1.
+There are two ways to write the fibonacci series program:
+o Fibonacci Series without recursion
+o Fibonacci Series using recursion
+Step-1: Start
+Step-2: Declare variables i, a,b , show
+Step-3: Initialize the variables, a=0, b=1, and show =0
+Step-4: Enter the number of terms of Fibonacci series to be printed
+ Print First two terms of series
+Step-5: Use loop for the following steps
+ -> show=a+b
+ -> a=b
+ -> b=show
+ -> increase value of i each time by 1
+ -> print the value of show
+Step-6: End
+
+#include<iostream>
+using namespace std;
+void printFibonacci(int n)
+{
+ static int n1=0, n2=1, n3;
+ if(n>0){
+ n3 = n1 + n2;
+ n1 = n2;
+ n2 = n3; 
+cout<<n3<<" ";
+ printFibonacci(n-1);
+ }
+}
+int main(){
+ int n;
+ cout<<"Enter the number of elements: ";
+ cin>>n;
+ cout<<"Fibonacci Series: ";
+ cout<<"0 "<<"1 ";
+ printFibonacci(n-2); //n-2 because 2 numbers are already printed
+ return 0;
+}
+Output:
+ Enter the number of elements: 15
+ Fibonacci Series: 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+
+Fibonacci series python
+
+# Python program to display the Fibonacci sequence
+def recur_fibo(n):
+   if n <= 1:
+       return n
+   else:
+       return(recur_fibo(n-1) + recur_fibo(n-2))
+
+nterms = 10
+
+# check if the number of terms is valid
+if nterms <= 0:
+   print("Plese enter a positive integer")
+else:
+   print("Fibonacci sequence:")
+   for i in range(nterms):
+       print(recur_fibo(i))
