@@ -19,7 +19,10 @@ contract StudentData {
 
     // Receive function to accept Ether This function can receive Ether, but it doesn't do anything in this example.
         // Log the received Ether value
-    receive() external payable {}
+    receive() external payable {
+//emit ReceivedEther(msg.sender, msg.value);
+    }
+//make similar function for fallback and add emit ReceivedEther(msg.sender, msg.value);
 
     // Function to add a new student
     function addStudent(string memory _name, uint _age, string memory _course) public {
