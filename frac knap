@@ -1,0 +1,68 @@
+Knapsack Problem : Given a set of items, each with a weight and a value, determine a subset of
+items to include in a collection so that the total weight is less than or equal to a given limit and the
+total value is as large as possible. The knapsack problem is in combinatorial optimization problem.
+It appears as a subproblem in many, more complex mathematical models of real-world problems.
+One general approach to difficult problems is to identify the most restrictive constraint, ignore the
+others, solve a knapsack problem, and somehow adjust the solution to satisfy the ignored
+constraints. The fractional knapsack problem is also one of the techniques which are used to solve
+the knapsack problem. In fractional knapsack, the items are broken in order to maximize the profit.
+The problem in which we break the item is known as a Fractional knapsack problem.
+Greedy approach: In Greedy approach, we calculate the ratio of profit/weight, and accordingly,
+we will select the item. The item with the highest ratio would be selected first.
+The same approach we are using in our program.
+ We have taken an array of structures named Item.
+ Each Item has value & weight.
+ We are calculating density= value/weight for each item and sorting the items array in
+the order of decreasing density.
+ We add values from the top of the array to totalValue until the bag is full
+i.e. totalValue<=W ( where W is Knapsack weight).
+
+There are basically three approaches to solve the problem:
+ The first approach is to select the item based on the maximum profit.
+ The second approach is to select the item based on the minimum weight.
+ The third approach is to calculate the ratio of profit/weight.
+
+Fractional Knapsack Problem using python
+# Structure for an item which stores weight and
+# corresponding value of Item
+class Item:
+	def __init__(self, profit, weight):
+		self.profit = profit
+		self.weight = weight
+
+# Main greedy function to solve problem
+def fractionalKnapsack(W, arr):
+
+	# Sorting Item on basis of ratio
+	arr.sort(key=lambda x: (x.profit/x.weight), reverse=True) 
+
+	# Result(value in Knapsack)
+	finalvalue = 0.0
+
+	# Looping through all Items
+	for item in arr:
+
+		# If adding Item won't overflow, 
+		# add it completely
+		if item.weight <= W:
+			W -= item.weight
+			finalvalue += item.profit
+
+		# If we can't add current Item, 
+		# add fractional part of it
+		else:
+			finalvalue += item.profit * W / item.weight
+			break
+	
+	# Returning final value
+	return finalvalue
+
+
+# Driver Code
+if __name__ == "__main__":
+	W = 50
+	arr = [Item(60, 10), Item(100, 20), Item(120, 30)]
+
+	# Function call
+	max_val = fractionalKnapsack(W, arr)
+	print(max_val)
