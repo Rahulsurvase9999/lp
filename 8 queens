@@ -1,0 +1,145 @@
+Backtracking:
+In backtracking, we start with one possible move out of many available moves. We then try to solve
+the problem. If we are able to solve the problem with the selected move then we will print the
+solution. Else we will backtrack and select some other move and try to solve it. If none of the moves
+works out we claim that there is no solution for the problem.
+8 Queen Problem:
+This problem is commonly seen for N=4 and N=8. Let’s look at an example where N=8
+Before solving the problem, you need to know about the movement of the queen in chess. A queen
+can move any number of steps in any direction. The only constraint is that it can’t change its
+direction while it’s moving. One thing that is clear by looking at the queen’s movement is that no
+two queens can be in the same row or column. N - Queens problem is to place n - queens in such
+a manner on an n x n chessboard that no queens attack each other by being in the same row, column
+or diagonal. 8-queens problem A classic combinatorial problem is to place 8 queens on a 8*8 chess
+board so that no two attack, i.,e no two queens are to the same row, column or diagonal. Now, we
+will solve 8 queen’s problem by using similar procedure adapted for 4 queen’s problem. The
+algorithm of 8 queen’s problem can be obtained by placing n=8, in N queen’s algorithm. If two
+queens are placed at positions (i,j) and (k,l). They are on the same diagonal only
+if i-j=k-l ……………….(1)
+or i+j=k+l .....................(2).
+From (1) and (2) implies j-l=i-k and j-l=k-i
+Two queens lie on the same diagonal if f |j-l|=|i-k|
+The solution of 8 queens problem can be obtained similar to the solution of 4 queens.
+problem.X1=3, X2=6, X3=2, X4=7, X5=1, X6=4, X7=8, X8=5,
+Place (k, i) returns a Boolean value that is true if the kth queen can be placed in column i. It tests
+both whether i is distinct from all previous costs x1, x2,....xk-1 and whether there is no other queen
+on the same diagonal. Using place, we give a precise solution to then n- queens problem. 
+Time Complexity Analysis
+ the isPossible method takes O(n) time
+ for each invocation of loop in nQueen Helper, it runs for O(n) time
+ the is Possible condition is present in the loop and also calls n Queen Helper which is
+recursive
+adding this up, the recurrence relation is:
+T(n) = O(n^2) + n * T(n-1)
+solving the above recurrence by iteration or recursion tree, the time complexity of the nQueen
+problem is = O(N!)
+
+#python program
+print("Enter the number of queens")
+N = int(input())
+
+board = [[0]*N for _ in range(N)]
+
+def is_attack(i, j):
+    for k in range(0,N):
+        if board[i][k]==1 or board[k][j]==1:
+            return True
+    for k in range(0, N):
+        for l in range(0,N):
+            if (k+l==i+j) or (k-l==i-j):
+                if board[k][l]==1:
+                    return True
+    return False
+
+def N_Queen(n):
+    if n==0:
+        return True
+    for i in range(0,N):
+        for j in range(0,N):
+            
+            if (not(is_attack(i,j))) and (board[i][j] != 1):
+                board[i][j] = 1
+                
+                if N_Queen(n-1) == True:
+                    return True
+                board[i][j] = 0
+                
+    return False
+
+N_Queen(N)
+for i in board:
+    print(i)
+
+
+// C++ program 8 Queen Programming
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#define N 8
+using namespace std;
+/* print solution */
+void printSolution(int board[N][N])
+{
+ for (int i = 0; i < N; i++)
+ {
+ for (int j = 0; j < N; j++)
+ cout<<board[i][j]<<" ";
+ cout<<endl;
+  }
+}
+/* check if a queen can be placed on board[row][col]*/
+bool isSafe(int board[N][N], int row, int col)
+{
+ int i, j;
+ for (i = 0; i < col; i++)
+ {
+ if (board[row][i])
+ return false;
+ }
+ for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
+ {
+ if (board[i][j])
+ return false;
+ }
+ for (i = row, j = col; j >= 0 && i < N; i++, j--)
+ {
+ if (board[i][j])
+ return false;
+ }
+ return true;
+}
+/*solve N Queen problem */
+bool solveNQUtil(int board[N][N], int col)
+{
+ if (col >= N)
+ return true;
+ for (int i = 0; i < N; i++)
+ {
+ if ( isSafe(board, i, col) )
+ {
+ board[i][col] = 1;
+ if (solveNQUtil(board, col + 1) == true)
+  return true;
+ board[i][col] = 0;
+ }
+ }
+ return false;
+}
+/* solves the N Queen problem using Backtracking.*/
+bool solveNQ()
+{
+ int board[N][N] = {0};
+ if (solveNQUtil(board, 0) == false)
+ {
+ cout<<"Solution does not exist"<<endl;
+ return false;
+ }
+ printSolution(board);
+ return true;
+}
+// Main
+int main()
+{
+ solveNQ();
+ return 0;
+}
