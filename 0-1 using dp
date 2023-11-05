@@ -1,0 +1,54 @@
+0/1 Knapsack Problem using Dyanamic Programming
+Theory:
+Branch and bound is an algorithm design paradigm which is generally used for solving
+combinatorial optimization problems. These problems typically exponential in terms of time
+complexity and may require exploring all possible permutations in worst case.
+Let us consider below 0/1 Knapsack problem to understand Branch and Bound. Given two integer
+arrays val[0..n-1] and wt[0..n-1] that represent values and weights associated with n items
+respectively.
+Find out the maximum value subset of val [] such that sum of the weights of this subset is smaller
+than or equal to Knapsack capacity W. Let us explore all approaches for this problem.
+1. A Greedy approach is to pick the items in decreasing order of value per unit weight. The
+Greedy approach works only for fractional knapsack problem and may not produce correct
+result for 0/1 knapsack.
+2. We can use Dynamic Programming (DP) for 0/1 Knapsack problem. In DP, we use a 2D table
+of size n x W. The DP Solution doesn’t work if item weights are not integers.
+3. Since DP solution doesn’t always work, a solution is to use Brute Force. With n items, there
+are 2n
+solutions to be generated, check each to see if they satisfy the constraint, save maximum
+solution that satisfies constraint. This solution can be expressed as tree
+# This is the memoization approach of 
+# 0 / 1 Knapsack in Python in simple 
+# we can say recursion + memoization = DP 
+
+
+def knapsack(wt, val, W, n): 
+
+	# base conditions 
+	if n == 0 or W == 0: 
+		return 0
+	if t[n][W] != -1: 
+		return t[n][W] 
+
+	# choice diagram code 
+	if wt[n-1] <= W: 
+		t[n][W] = max( 
+			val[n-1] + knapsack( 
+				wt, val, W-wt[n-1], n-1), 
+			knapsack(wt, val, W, n-1)) 
+		return t[n][W] 
+	elif wt[n-1] > W: 
+		t[n][W] = knapsack(wt, val, W, n-1) 
+		return t[n][W] 
+
+# Driver code 
+if __name__ == '__main__': 
+	profit = [60, 100, 120] 
+	weight = [10, 20, 30] 
+	W = 50
+	n = len(profit) 
+# We initialize the matrix with -1 at first. 
+	t = [[-1 for i in range(W + 1)] for j in range(n + 1)] 
+	print(knapsack(weight, profit, W, n)) 
+
+
