@@ -17,7 +17,8 @@ contract StudentData {
      // if required add this addStudent("Unknown", "BE", "CSE")
     }
 
-    // Receive function to accept Ether
+    // Receive function to accept Ether This function can receive Ether, but it doesn't do anything in this example.
+        // Log the received Ether value
     receive() external payable {}
 
     // Function to add a new student
