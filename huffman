@@ -1,0 +1,122 @@
+Huffman coding is a greedy algorithm frequently used for lossless data compression. Therefore,
+a basic principle of Huffman coding is to compress and encode the text or the data depending on
+the frequency of the characters in the text.
+The basic idea behind the Huffman coding algorithm is to assign the variable-length codes to input
+characters of text based on the frequencies of the corresponding character. So, the most frequent
+character gets the smallest code, and the least frequent character is assigned with the largest code.
+Here, the codes assigned to the characters are termed prefix codes which means that the code
+assigned to one character is not the prefix of the code assigned to any other character. Using this
+technique, Huffman coding ensures that there is no ambiguity when decoding the generated bit
+stream.
+Huffman encoding implements the following steps.
+o It assigns a variable-length code to all the given characters.
+o The code length of a character depends on how frequently it occurs in the given text or string.
+o A character gets the smallest code if it frequently occurs.
+o A character gets the largest code if it least occurs.
+Huffman coding follows a prefix rule that prevents ambiguity while decoding. The rule also
+ensures that the code assigned to the character is not treated as a prefix of the code assigned to any
+other character.
+There are the following two major steps involved in Huffman coding:
+
+o First, construct a Huffman tree from the given input string or characters or text.
+o Assign, a Huffman code to each character by traversing over the tree.
+Suppose, we have to encode string abracadabra. Determine the following:
+i. Huffman code for All the characters
+ii. Average code length for the given String
+iii. Length of the encoded string
+
+Algorithm:
+Huffman (C)
+n=|C|
+Q=C
+for i=1 to n-1
+ do
+ z=allocate_Node()
+ x=left[z]=Extract_Min(Q)
+ y=right[z]=Extract_Min(Q)
+ f[z]=f[x]+f[y]
+Insert(Q,z)
+return Extract_Min(Q)
+Time ComplexityThe time complexity analysis of Huffman Coding is as follows-
+ extract Min( ) is called 2 *(n-1) times if there are n nodes.
+ As extract Min( ) calls min Heapify( ), it takes O(logn) time.
+Thus, Overall time complexity of Huffman Coding becomes O(nlogn)
+
+# A Huffman Tree Node 
+import heapq 
+class node: 
+	def __init__(self, freq, symbol, left=None, right=None): 
+		# frequency of symbol 
+		self.freq = freq 
+
+		# symbol name (character) 
+		self.symbol = symbol 
+
+		# node left of current node 
+		self.left = left 
+
+		# node right of current node 
+		self.right = right 
+
+		# tree direction (0/1) 
+		self.huff = ' ' 
+
+	def __lt__(self, nxt): 
+		return self.freq < nxt.freq 
+
+
+# utility function to print huffman 
+# codes for all symbols in the newly 
+# created Huffman tree 
+def printNodes(node, val=''): 
+
+	# huffman code for current node 
+	newVal = val + str(node.huff) 
+
+	# if node is not an edge node 
+	# then traverse inside it 
+	if(node.left): 
+		printNodes(node.left, newVal) 
+	if(node.right): 
+		printNodes(node.right, newVal) 
+
+		# if node is edge node then 
+		# display its huffman code 
+	if(not node.left and not node.right): 
+		print(f"{node.symbol} -> {newVal}") 
+
+
+# characters for huffman tree 
+chars = ['a', 'b', 'c', 'd', 'e', 'f'] 
+
+# frequency of characters 
+freq = [5, 9, 12, 13, 16, 45] 
+
+# list containing unused nodes 
+nodes = [] 
+
+# converting characters and frequencies 
+# into huffman tree nodes 
+for x in range(len(chars)): 
+	heapq.heappush(nodes, node(freq[x], chars[x])) 
+
+while len(nodes) > 1: 
+
+	# sort all the nodes in ascending order 
+	# based on their frequency 
+	left = heapq.heappop(nodes) 
+	right = heapq.heappop(nodes) 
+
+	# assign directional value to these nodes 
+	left.huff = 0
+	right.huff = 1
+
+	# combine the 2 smallest nodes to create 
+	# new node as their parent 
+	newNode = node(left.freq+right.freq, left.symbol+right.symbol, left, right) 
+
+	heapq.heappush(nodes, newNode) 
+
+# Huffman Tree is ready! 
+printNodes(nodes[0])
+
