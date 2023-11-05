@@ -30,6 +30,11 @@ contract StudentData {
         students.push(newStudent);
     }
 
+//function getStudent(uint256 index) public view returns (string memory, uint256) {
+    //    require(index < students.length, "Student not found");
+      //  return (students[index].name, students[index].age);
+   // }
+
     // Function to get the total number of students
     function getTotalStudents() public view returns (uint) {
         return students.length;
